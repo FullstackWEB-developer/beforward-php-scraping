@@ -22,35 +22,35 @@ function scraping_DB($url) {
         
         foreach($sub_html->find('ul.title h1, p.showMore a[target=_blank], div[class^=carDetails] table[class=tabA]') as $node) {
             if ($node->tag=='h1')
-                $ret['Title'] = $node->plaintext;
+                $title[$i] = $node->plaintext;
 
             foreach($node->find('a') as $a) {
                 if($a->href) {
-                    $ret['downloadLink'] = $a->href;
+                    $downloadLink[$i] = $a->href;
                 }
             }
 
             // foreach($node->find('table', 0) as $table) {
             //     foreach($table->find('tbody') as $tbody) {
-            //         $ret['Stock Id'] = $tbody->find('tr', 0)->find('td', 0)->plaintext;
-            //         $ret['Inventory Location'] = $tbody->find('tr', 0)->find('td', 1)->plaintext;
-            //         $ret['Model Code'] = $tbody->find('tr', 1)->find('td', 0)->plaintext;
-            //         $ret['Year'] = $tbody->find('tr', 1)->find('td', 1)->plaintext;
-            //         $ret['Transmission'] = $tbody->find('tr', 2)->find('td', 0)->plaintext;
-            //         $ret['Color'] = $tbody->find('tr', 2)->find('td', 1)->plaintext;
-            //         $ret['Drive'] = $tbody->find('tr', 3)->find('td', 0)->plaintext;
-            //         $ret['Door'] = $tbody->find('tr', 3)->find('td', 1)->plaintext;
-            //         $ret['Steering'] = $tbody->find('tr', 4)->find('td', 0)->plaintext;
-            //         $ret['Seats'] = $tbody->find('tr', 4)->find('td', 1)->plaintext;
-            //         $ret['Engine Type'] = $tbody->find('tr', 5)->find('td', 0)->plaintext;
-            //         $ret['Body Type'] = $tbody->find('tr', 5)->find('td', 1)->plaintext;
-            //         $ret['Engine Size'] = $tbody->find('tr', 6)->find('td', 0)->plaintext;
-            //         $ret['Mileage'] = $tbody->find('tr', 6)->find('td', 1)->plaintext;
-            //         $ret['Fuel'] = $tbody->find('tr', 7)->find('td', 0)->plaintext;
-            //         $ret['Body Length'] = $tbody->find('tr', 7)->find('td', 1)->plaintext;
-            //         $ret['Curb Weight'] = $tbody->find('tr', 8)->find('td', 0)->plaintext;
-            //         $ret['Gross Vehicle Weight'] = $tbody->find('tr', 8)->find('td', 1)->plaintext;
-            //         $ret['Max Loading Capacity'] = $tbody->find('tr', 9)->find('td', 0)->plaintext;
+            //         $Stock Id[$i] = $tbody->find('tr', 0)->find('td', 0)->plaintext;
+            //         $Inventory Location[$i] = $tbody->find('tr', 0)->find('td', 1)->plaintext;
+            //         $Model Code[$i] = $tbody->find('tr', 1)->find('td', 0)->plaintext;
+            //         $Year[$i] = $tbody->find('tr', 1)->find('td', 1)->plaintext;
+            //         $Transmission[$i] = $tbody->find('tr', 2)->find('td', 0)->plaintext;
+            //         $Color[$i] = $tbody->find('tr', 2)->find('td', 1)->plaintext;
+            //         $Drive[$i] = $tbody->find('tr', 3)->find('td', 0)->plaintext;
+            //         $Door[$i] = $tbody->find('tr', 3)->find('td', 1)->plaintext;
+            //         $Steering[$i] = $tbody->find('tr', 4)->find('td', 0)->plaintext;
+            //         $Seats[$i] = $tbody->find('tr', 4)->find('td', 1)->plaintext;
+            //         $Engine Type[$i] = $tbody->find('tr', 5)->find('td', 0)->plaintext;
+            //         $Body Type[$i] = $tbody->find('tr', 5)->find('td', 1)->plaintext;
+            //         $Engine Size[$i] = $tbody->find('tr', 6)->find('td', 0)->plaintext;
+            //         $Mileage[$i] = $tbody->find('tr', 6)->find('td', 1)->plaintext;
+            //         $Fuel[$i] = $tbody->find('tr', 7)->find('td', 0)->plaintext;
+            //         $Body Length[$i] = $tbody->find('tr', 7)->find('td', 1)->plaintext;
+            //         $Curb Weight[$i] = $tbody->find('tr', 8)->find('td', 0)->plaintext;
+            //         $Gross Vehicle Weight[$i] = $tbody->find('tr', 8)->find('td', 1)->plaintext;
+            //         $Max Loading Capacity[$i] = $tbody->find('tr', 9)->find('td', 0)->plaintext;
             //     }
             // }
 
@@ -75,7 +75,7 @@ var_dump($ret);
 // -----------------------------------------------------------------------------
 // pagenation loop
 
-for ($pageid=1; $pageid < 2; $pageid++) { 
+for ($pageid=1; $pageid < 3; $pageid++) { 
 // for ($pageid=1; $pageid < 320; $pageid++) { 
     // $ret = scraping_DB("https://www.beforward.jp/stocklist/alt_port_id=32/from_stocklist=1/mfg_year_from=2014/page=$pageid/protection=1/sortkey=d/steering=Right/tp_country_id=27/view_cnt=100");
     $ret = scraping_DB("https://www.sbtjapan.com/used-cars/?steering=right-hand-drive&drive=0&year_f=2014&cc_f=0&cc_t=0&mile_f=0&mile_t=0&trans=0&savel=0&saveu=0&fuel=0&color=0&bodyLength=0&loadClass=0&engineType=0&location=&port=0&search_box=1&locationIds=0&d_country=26&d_port=52&ship_type=0&FreightChk=yes&currency=2&inspection=yes&insurance=1&sort=2&psize=25&p_num=$pageid#listbox");
